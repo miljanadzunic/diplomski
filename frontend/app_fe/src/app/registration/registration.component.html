@@ -1,0 +1,171 @@
+<h2 class="mb-3 mt-3" style="text-align: center;"> 
+    Forma za  registraciju
+</h2>
+<form method="POST" enctype="multipart/form-data" style="text-align: center;" #registrationForm="ngForm">
+
+    <table style="margin-left: auto; margin-right: auto;">
+        <tr style="width: 100%;" *ngIf=" errMsg != '' ">
+            <td colspan="2">
+                <div>
+                    <span>
+                        <span class="alert alert-danger" style="display: flex; width: 100%;">Greška: {{errMsg}}</span>
+                    </span>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td><label class="label_required">Ime:</label></td>
+            <td style="width: 75%;">
+                <input class="form-control mt-1 mb-1" type="text" required="true" name="vorname" [(ngModel)]="user.accName" [required]="true" #accName="ngModel">
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="accName && !accName.valid && accName.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="accName.errors && accName.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="label_required">Prezime:</label></td>
+            <td>
+                <input class="form-control mt-1 mb-1" type="text" required="true" name="lastname" [(ngModel)]="user.accSurname" [required]="true" #accLastName="ngModel">
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="accLastName && !accLastName.valid && accLastName.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="accLastName.errors && accLastName.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="label_required" style="margin-right: 10px;">Korisnicko ime:</label></td>
+            <td>
+                <input class="form-control mt-1 mb-1" type="text" required="true" name="username" [(ngModel)]="user.accUsername" [required]="true" #accUsername="ngModel">
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="accUsername && !accUsername.valid && accUsername.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="accUsername.errors && accUsername.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="label_required">Lozinka:</label></td>
+            <td>
+                <input class="form-control mt-1 mb-1" type="password" required="true" name="lozinka" [(ngModel)]="user.accPassword" [required]="true" 
+                 #accPass="ngModel">
+                  <!-- [pattern]="regex" -->
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="accPass && !accPass.valid && accPass.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="accPass.errors && accPass.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                    <!-- <span class="error" *ngIf="accPass.errors && accPass.errors['pattern']">
+                        Minimalno 8 karaktera, 1 veliko slovo, <br/>
+                        1 broj, 1 specijalni karakter, mora poceti slovom
+                    </span> -->
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="label_required" style="margin-right: 10px;">Potvrda lozinke:</label></td>
+            <td>
+                <input class="form-control mt-1 mb-1" type="password" name="lozinka2" [(ngModel)]="repeatPassword" [required]="true"
+               #accRepeatPass="ngModel">
+               <!-- [pattern]="regex"  -->
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="accRepeatPass && !accRepeatPass.valid && accRepeatPass.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="accRepeatPass.errors && accRepeatPass.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                    <!-- <span class="error" *ngIf="accRepeatPass.errors && accRepeatPass.errors['pattern']">
+                        Minimalno 8 karaktera, 1 veliko slovo, <br/>
+                        1 broj, 1 specijalni karakter, mora poceti slovom
+                    </span> -->
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="label_required" style="margin-right: 10px;">Datum rodjenja:</label></td>
+            <td>
+                <input class="form-control mt-1 mb-1" type="date" name="datum_rodjenja" [(ngModel)]="user.accBirthday" [required]="true" #accBirthday="ngModel">
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="accBirthday && !accBirthday.valid && accBirthday.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="accBirthday.errors && accBirthday.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr> 
+            <td><label class="label_required">Telefon:</label></td>
+            <td>
+                <input class="form-control mt-1 mb-1" type="text" name="telefon" [(ngModel)]="user.accPhone" [required]="true" #accPhone="ngModel">
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="accPhone && !accPhone.valid && accPhone.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="accPhone.errors && accPhone.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="label_required">Email:</label></td>
+            <td>
+                <input class="form-control mt-1 mb-1" type="text" name="email" [(ngModel)]="user.accEmail" [required]="true" #accEmail="ngModel">
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="accEmail && !accEmail.valid && accEmail.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="accEmail.errors && accEmail.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="label_required">Tip:</label></td>
+            <td>
+                <p-dropdown [options]="roles" [(ngModel)]="this.user.accRole" #accRole="ngModel" appendTo="body" name="acc_role" id="acc-role"
+                [style]="{'width': '100%'}" [required]="true">
+                </p-dropdown>
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="accRole && !accRole.valid && accRole.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="accRole.errors && accRole.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Profilna fotografija:
+            </td>
+            <td>
+                <input class="form-control mt-1 mb-1" type="file" name="acc_photo" id="acc-photo" accept="image/jpeg,image/png" [required]="true" (change)="checkChoosenPhoto($event)"
+                    #accPhoto="ngModel" [(ngModel)]="userPhoto"> 
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="accPhoto && !accPhoto.valid && accPhoto.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="accPhoto.errors && accPhoto.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr class="mb-3 mt-3">
+            <td colspan="2" >
+               
+                <button class="btn btn-dark mb-3 mt-3" (click)="registration()" [disabled]="!registrationForm.form.valid">Registruj se</button>
+            </td>
+        </tr>
+    </table>
+</form>

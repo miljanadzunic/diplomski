@@ -1,0 +1,113 @@
+<div style="margin-left: 50px; margin-right: 50px;">
+    <app-student-and-recreationist-reservation-list ></app-student-and-recreationist-reservation-list>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-6" *ngIf="acceptedRequest && acceptedRequest.sctCoach">
+      <div class="jumbotron" style="background-color: #ffc14d; padding: 40px; margin-bottom: 40px; margin-top: 30px;" *ngIf="acceptedRequest && acceptedRequest.sctCoach">
+        <h1 class="display-4" style="text-align: center; font-size: 30px;">
+            <span>Moj trener</span>
+        </h1>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-6" *ngIf="acceptedRequest && acceptedRequest.sctGroup">
+      <div class="jumbotron" style="background-color: #ffc14d; padding: 40px; margin-bottom: 40px; margin-top: 30px;" *ngIf="acceptedRequest && acceptedRequest.sctCoach">
+        <h1 class="display-4" style="text-align: center; font-size: 30px;">
+            <span>Moja grupa</span>
+        </h1>
+      </div>
+    </div>
+  </div>
+    <div class="row" >
+      <div class="col-sm-12 col-md-6 col-lg-6" style="height: 500px;" *ngIf="acceptedRequest && acceptedRequest.sctCoach">
+        <div class="container mt-3">
+          <div class="card" style="width: 300px; height: 470px;">
+            <img class="card-img-top" src="./assets/profilne_slike/{{acceptedRequest.sctCoach.accPhoto}}" alt="Card image" height="300px">
+            <div class="card-body">
+              <h4 class="card-title">{{acceptedRequest.sctCoach.accName}}&nbsp;{{acceptedRequest.sctCoach.accSurname}}</h4>
+              <p class="card-text">
+                <i class="fa fa-envelope" aria-hidden="true" style="padding-right: 5px;"></i>
+                <b>Email:</b>&nbsp;{{acceptedRequest.sctCoach.accEmail}}<br/>
+                <i class="fa fa-phone" aria-hidden="true" style="padding-right: 5px;"></i> 
+                <b>Telefon:</b>&nbsp;{{acceptedRequest.sctCoach.accPhone}}
+              </p>
+              <div>
+                <button pButton type="button" 
+                        label="Otkaži trenera"
+                        (click)="cancelCoach()">
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-4" style="height: 500px;" *ngIf="acceptedRequest && acceptedRequest.sctGroup">
+        <div class="container mt-3">
+          <div class="card" style="width: 300px; height: 470px;">
+            <img class="card-img-top" src="./assets/management-300x300.png" alt="Card image" height="300px">
+            <div class="card-body">
+              <h4 class="card-title">{{acceptedRequest.sctGroup.grpName}}&nbsp;</h4>
+              <p class="card-text">
+                Opis: {{acceptedRequest.sctGroup.grpDesc}}
+                <br/>
+                <span *ngFor="let member of teamMembers">
+                  <i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;"></i>{{member.accName}}&nbsp;{{member.accSurname}}
+                  <br/>
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 10px;">
+    <div class="row" style="width: 100%;">
+      <div *ngIf="successMsg != ''">
+          <div class="alert alert-success" style="text-align: center;">
+              <strong>Uspeh:&nbsp;</strong>{{successMsg}}
+          </div>
+      </div>
+      <div *ngIf="errMsg != ''">
+          <div class="alert alert-danger" style="text-align: center;">
+              <strong>Greška: </strong>{{errMsg}}
+          </div>
+      </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 10px; margin-bottom: 20px;" *ngIf="newRequests.length > 0">
+  <h2>Lista zahteva poslatih trenerima</h2>
+    <p-table #dt1 [value]="newRequests" [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5, 10, 15]"
+             [responsive]="true">
+        <ng-template pTemplate="header">
+            <th style="background-color: #dfff4f !important; height: 70px; padding: 20px;" colspan="2">Trener</th>
+            <th style="background-color: #dfff4f !important;">Status</th>
+            <th style="background-color: #dfff4f !important;">&nbsp;</th>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-sct>
+            <tr>
+                <td>{{sct.sctCoach.accName}}&nbsp;{{sct.sctCoach.accSurname}}</td>
+                <td><img src="./assets/profilne_slike/{{sct.sctCoach.accPhoto}}" width="100" class="shadow-4"></td>
+                <td>{{sct.sctStatus && sct.sctStatus.staDesc}}</td>
+                <td>
+                    <button pButton type="button"
+                            (click)="deleteReservation(sct)"
+                            icon = "fa fa-trash">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+        <tr>
+            <td [attr.colspan]="10">Nema novih zahteva</td>
+        </tr>
+        </ng-template>
+</p-table>
+</div>
+
+<div class="bgImage" style="background-image: url('./assets/coach_background_image.jpg'); margin-bottom: -20px;"></div>

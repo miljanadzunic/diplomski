@@ -1,0 +1,63 @@
+
+<app-student-and-recreationist-reservation-list></app-student-and-recreationist-reservation-list>
+
+<div class="container" style="margin-top: 50px; margin-bottom: 50px;">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <div class="container mt-3">
+                <div class="card" style="width: 300px;">
+                  <img class="card-img-top" src="./assets/courts/all_courts.jpg" alt="Card image" height="300px">
+                  <div class="card-body">
+                    <h4 class="card-title"><b>Rezervacija termina</b></h4>
+                    <p class="card-text">
+                      Klub poseduje terene na svim podlogama. Teniska akademija ima čak dva terena na šljaci, jedan na travi i jedan na betonu.
+                      Izaberi teren na omiljenoj podlozi i rezerviši na vreme!
+                    </p>
+                    <button pButton type="button"
+                            label="Rezerviši"
+                            (click)="goToReservations()">
+                    </button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <div class="container mt-3">
+                <div class="card" style="width: 300px;">
+                  <img class="card-img-top" src="./assets/serve_man_tennis.jpg" alt="Card image" height="300px">
+                  <div class="card-body">
+                    <h4 class="card-title"><b>Pronađi trenera</b></h4>
+                    <p class="card-text">
+                      Zaposleni u akademiji su puni znanja i sa nestrpljenjem žele da ga podele sa obožavaocima tenisa.
+                      Izaberi trenera sa kojim ćes da raditi i unaprediti svoje veštine.
+                    </p>
+                    <button pButton type="button"  
+                            label="Pronađi trenera"
+                            (click)="goToCoaches()">
+                    </button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <div class="container mt-3">
+                <div class="card" style="width: 300px;">
+                  <img class="card-img-top" src="./assets/court_home.jpg" alt="Card image" height="300px">
+                  <div class="card-body">
+                    <h4 class="card-title"><b>Pronađi teren</b></h4>
+                    <p class="card-text">
+                      Teniska akademija nudi terene svih tipova podloga koji se održavaju sa punom pažnjom i najnovijim tehnologijama.
+                      Uverite se tako što ćete ih isprobati. Rezerviši teren na vreme!
+                    </p>
+                    <button pButton type="button" 
+                            label="Pronađi teren"
+                            (click)="goToCourts()">
+                    </button>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bgImage" style="background-image: url('./assets/coach_background_image.jpg'); margin-bottom: -20px;"></div>

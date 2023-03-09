@@ -1,0 +1,76 @@
+<div class="jumbotron" style="background-color: #ffc14d; padding: 40px; margin-bottom: 40px; margin-left: 50px;  margin-right: 50px;">
+    <h1 class="display-4" style="text-align: center; font-size: 30px;">Moji grupni termini</h1>
+</div>
+
+<div class="container" style="margin-top: 30px;">
+    <p-table #dt1 [value]="groupReservations" [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5, 10, 15]"
+             [responsive]="true" [style]="{'margin-top': '50px'}">
+        <ng-template pTemplate="header">
+            <th style="background-color: #dfff4f !important; height: 70px; padding: 20px;">Datum</th>
+            <th style="background-color: #dfff4f !important;">Vreme od</th>
+            <th style="background-color: #dfff4f !important;">Vreme do</th>
+            <th style="background-color: #dfff4f !important;" colspan="2">Teren</th>
+            <th style="background-color: #dfff4f !important;">Grupa</th>
+            <th style="background-color: #dfff4f !important;">Učenici</th>
+            <th style="background-color: #dfff4f !important;">Broj reketa</th>
+            <th style="background-color: #dfff4f !important;">Status</th>
+            <th style="background-color: #dfff4f !important;">&nbsp;</th>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-res>
+            <tr>
+                <td>{{res.value.resDate | date: 'dd.MM.yyyy'}}</td>
+                <td>{{res.value.resTimeStart}}:00h</td>
+                <td>{{res.value.resTimeEnd}}:00h</td>
+                <td>{{res.value.resCourt.corName}}</td>
+                <td><img src="./assets/courts/{{res.value.resCourt.corImg}}" width="100" class="shadow-4"></td>
+                <td>{{res.value.resGroup.grpName}}</td>
+                <td>{{res.students}}</td>
+                <td>{{res.value.resRacketNum}}</td>
+                <td>{{res.value.resStatus && res.value.resStatus.staDesc}}</td>
+                <td>
+                    <!-- <button pButton type="button"
+                            (click)="acceptReservation(res)"
+                            icon = "fa fa-check"
+                            [disabled]="res.resStatus.staCode == 'STA_ODOBREN' || res.resStatus.staCode == 'STA_OTKAZAN'"
+                            style="margin-right: 2px;">
+                    </button> -->
+                    <button pButton type="button"
+                            (click)="cancelReservation(res)"
+                            icon = "fa fa-close"
+                            [disabled]="res.value.resStatus.staCode == 'STA_OTKAZAN'"
+                            style="margin-right: 2px;">
+                    </button>
+                    <!-- <button pButton type="button"
+                            (click)="deleteReservation(res)"
+                            icon = "fa fa-trash"
+                            [disabled]="res.resStatus.staCode == 'STA_ODOBREN'">
+                    </button> -->
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td [attr.colspan]="10">Nema rezervacija</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="container">
+    <div class="row" style="width: 100%; margin-top: 20px;">
+      <div *ngIf="successMsg != ''">
+          <div class="alert alert-success" style="text-align: center;">
+              <strong>Uspeh:&nbsp;</strong>{{successMsg}}
+          </div>
+      </div>
+      <div *ngIf="errMsg != ''">
+          <div class="alert alert-danger" style="text-align: center;">
+              <strong>Greška: </strong>{{errMsg}}
+          </div>
+      </div>
+    </div>
+</div>
+
+<div class="bgImage" style="background-image: url('./assets/coach_background_image.jpg'); margin-bottom: -50px;"></div>s

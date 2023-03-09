@@ -1,0 +1,155 @@
+<div class="jumbotron" style="background-color: #ffc14d; padding: 40px; margin-bottom: 40px;">
+  <h1 class="display-4" style="text-align: center; font-size: 30px;">Rezervacija termina</h1>
+</div>
+
+<div  class="container">
+  <mat-stepper orientation="horizontal" [linear]="isLinear" #stepper >
+
+<!-----------------------------------------------------KORAK 1----------------------------------------------------------------------------------------->
+    <mat-step>
+      <form #step1Form="ngForm">
+        <ng-template matStepLabel>Korak 1</ng-template>
+        <div class="container">
+
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <label class="label_required" style="width: 15%;">Teren:</label>
+              <p-dropdown [options]="allCourts" 
+                          [(ngModel)]="newReservation.resCourt" 
+                          #court="ngModel" 
+                          appendTo="body" 
+                          name="court" id="court"
+                          [style]="{'width': '30%'}"
+                          [required]="true"
+                          (onChange)="populateTimeChips()">
+              </p-dropdown>
+              <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="court && !court.valid && court.dirty">
+                <i class="fa fa-close error"></i>
+                <span class="error" *ngIf="court.errors && court.errors['required']">Polje je obavezno!</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <label style="width: 15%;">Trener: </label>
+              <p-dropdown [options]="allCoaches" 
+                          [(ngModel)]="newReservation.resCoach" 
+                          #coach="ngModel" 
+                          appendTo="body" 
+                          name="coach" id="coach"
+                          [style]="{'width': '30%'}">
+              </p-dropdown>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <label style="width: 15%;">Broj termina:</label>
+              <p-dropdown [options]="terminsNum" 
+                                [(ngModel)]="newReservation.resTerminNum" 
+                                #terminNum="ngModel" 
+                                appendTo="body" 
+                                name="termin_num" id="termin-num"
+                                [required]="false">
+              </p-dropdown>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <label style="width: 15%;">Broj reketa:</label>
+              <p-dropdown [options]="racketsNum" 
+                                [(ngModel)]="newReservation.resRacketNum" 
+                                #racketNum="ngModel" 
+                                appendTo="body" 
+                                name="racket_num" id="racket-num"
+                                [required]="false">
+              </p-dropdown>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="p-3"> 
+              <button mat-button matStepperNext class="btn btn-success" [disabled]="!step1Form.form.valid">Next</button>
+            </div>
+          </div>
+        </div>
+    
+        
+      </form>
+    </mat-step>
+
+<!-----------------------------------------------------KORAK 2----------------------------------------------------------------------------------------->
+    <mat-step>
+      <form #step2Form="ngForm">
+        <ng-template matStepLabel>Korak 2</ng-template>
+        <div class="container">
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+              <p-calendar [(ngModel)]="newReservation.resDate" 
+                          #resDate="ngModel"
+                          name="res_date" id="res-date"
+                          [inline]="true" 
+                          [minDate]="minDate" 
+                          [required]="true"
+                          (onSelect)="onDateSelect()">
+              </p-calendar>
+              <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="resDate && !resDate.valid && resDate.dirty">
+                  <i class="fa fa-close error"></i>
+                  <span class="error" *ngIf="resDate.errors && resDate.errors['required']">
+                      Polje je obavezno!
+                  </span>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6" *ngIf="newReservation && newReservation.resDate && newReservation.resCourt">
+              <label>Vreme:</label>
+              <div class="row" >
+                  <div class="col-sm-6 col-md-6 col-lg-4" *ngFor="let timeChip of timeChips; index as i;">
+                      <div class="pt-2">
+                          <p-chip [label]="timeChip.label"
+                                  [ngStyle]="{'margin-right': '5px', 'margin-left': '3px'}"
+                                  [icon]="timeChip.checked? 'pi pi-check' : ''"
+                                  (click)="chipToggle(timeChip)"
+                                  [ngClass]="styleChip(timeChip)">
+                          </p-chip>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="p-3"> 
+              <button mat-button matStepperPrevious class="btn btn-dark">Back</button>&nbsp;
+              <button pButton type="button" class="btn btn-success"
+                      id="submit-btn" (click)="reserve()" label="Rezerviši" 
+                      [disabled]="!step1Form.form.valid || !step2Form.form.valid">
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+  </mat-stepper>
+</div>
+
+<div class="container">
+  <div class="row" style="width: 100%; margin-top: 20px;">
+    <div *ngIf="successMsg != ''">
+        <div class="alert alert-success" style="text-align: center;">
+            <strong>Uspeh:&nbsp;</strong>{{successMsg}}
+        </div>
+    </div>
+    <div *ngIf="errMsg != ''">
+        <div class="alert alert-danger" style="text-align: center;">
+            <strong>Greška: </strong>{{errMsg}}
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="bgImage" style="background-image: url('./assets/coach_background_image.jpg'); margin-bottom: -20px;">
+</div>

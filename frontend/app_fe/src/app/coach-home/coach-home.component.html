@@ -1,0 +1,209 @@
+<div class="jumbotron" style="background-color: #ffc14d; padding: 40px; margin-bottom: 40px; margin-left: 50px;  margin-right: 50px;">
+    <h1 class="display-4" style="text-align: center; font-size: 30px;">Moji učenici</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-3">
+            <label>Status:</label>
+            <p-dropdown [options]="filterStatusOptions1" 
+                        [(ngModel)]="filterStatus1" 
+                        #statusFilter="ngModel" 
+                        appendTo="body" 
+                        name="filter_status" id="filter-status"
+                        [style]="{'width': '100%'}">
+            </p-dropdown>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4" style="text-align: right;">
+            <button type="button"
+                    class="btn btn-success"
+                    (click)="filterTable1()"
+                    style="margin-right: 2px; margin-top: 20px;">Pretraži
+            </button>
+            <button type="button" class="btn btn-dark"
+                    (click)="cancelFilter1()"
+                    style="margin-right: 2px; margin-top: 20px;">Poništi filtere</button>
+       </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 30px;">
+    <p-table #dt1 [value]="myRequests" [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5, 10, 15]"
+             [responsive]="true" [style]="{'margin-top': '50px'}">
+        <ng-template pTemplate="header">
+            <th style="background-color: #dfff4f !important; height: 70px; padding: 20px;">Ime i prezime</th>
+            <th style="background-color: #dfff4f !important;">Slika</th>
+            <th style="background-color: #dfff4f !important;">Username</th>
+            <th style="background-color: #dfff4f !important;">Email</th>
+            <th style="background-color: #dfff4f !important;">Telefon</th>
+            <th style="background-color: #dfff4f !important;">Darum rođenja</th>
+            <th style="background-color: #dfff4f !important;">Status</th>
+            <th style="background-color: #dfff4f !important;">Grupa</th>
+            <th style="background-color: #dfff4f !important;">&nbsp;</th>
+        </ng-template>
+        
+        <ng-template pTemplate="body" let-res>
+            <tr>
+                <td>{{res.sctStudent.accName}}&nbsp;{{res.sctStudent.accSurname}}</td>
+                <td *ngIf="res.sctStudent.accPhoto == null">&nbsp;</td>
+                <td *ngIf="res.sctStudent.accPhoto"><img src="./assets/profilne_slike/{{res.sctStudent.accPhoto}}" width="100" class="shadow-4"></td>
+                <td>{{res.sctStudent.accUsername}}</td>
+                <td>{{res.sctStudent.accEmail}}</td>
+                <td>{{res.sctStudent.accPhone}}</td>
+                <td>{{res.sctStudent.accBirthday | date: 'dd.MM.yyyy'}}</td>
+                <td>{{res.sctStatus.staDesc}}</td>
+                <td *ngIf="res.sctGroup == null">&nbsp;</td>
+                <td *ngIf="res.sctGroup != null">{{res.sctGroup.grpName}}</td>
+                <td>
+                    <button pButton type="button"
+                            (click)="acceptStudent(res)"
+                            icon = "fa fa-check"
+                            [disabled]="res.sctStatus.staCode == 'STA_PRIHVACEN' || res.sctStatus.staCode == 'STA_ODBIJEN'"
+                            style="margin-right: 2px;">
+                    </button>
+                    <button pButton type="button"
+                            (click)="declineStudent(res)"
+                            icon = "fa fa-close"
+                            [disabled]="res.sctStatus.staCode == 'STA_ODBIJEN'"
+                            style="margin-right: 2px;">
+                    </button>
+                    <button pButton type="button"
+                            (click)="deleteRequest(res)"
+                            icon = "fa fa-trash"
+                            [disabled]="res.sctStatus.staCode == 'STA_NOVI' || res.sctStatus.staCode == 'STA_PRIHVACEN'"
+                            style="margin-right: 2px;">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td [attr.colspan]="7">Nema ucenika</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="container">
+    <div class="row" style="width: 100%; margin-top: 20px;">
+      <div *ngIf="successMsg1 != ''">
+          <div class="alert alert-success" style="text-align: center;">
+              <strong>Uspeh:&nbsp;</strong>{{successMsg1}}
+          </div>
+      </div>
+      <div *ngIf="errMsg1 != ''">
+          <div class="alert alert-danger" style="text-align: center;">
+              <strong>Greška: </strong>{{errMsg1}}
+          </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="jumbotron" style="background-color: #ffc14d; padding: 40px; margin-bottom: 40px; margin-left: 50px;  margin-right: 50px;">
+    <h1 class="display-4" style="text-align: center; font-size: 30px;">Moji individualni rezervisani termini</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-3">
+            <label>Status:</label>
+            <p-dropdown [options]="filterStatusOptions2" 
+                        [(ngModel)]="filterStatus2" 
+                        #statusFilter2="ngModel" 
+                        appendTo="body" 
+                        name="filter_status2" id="filter-status2"
+                        [style]="{'width': '100%'}">
+            </p-dropdown>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4" style="text-align: right;">
+            <button type="button"
+                    class="btn btn-success"
+                    (click)="filterTable2()"
+                    style="margin-right: 2px; margin-top: 20px;">Pretraži
+            </button>
+            <button type="button" class="btn btn-dark"
+                    (click)="cancelFilter2()"
+                    style="margin-right: 2px; margin-top: 20px;">Poništi filtere
+            </button>
+       </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 30px;">
+    <p-table #dt1 [value]="myReservations" [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5, 10, 15]"
+             [responsive]="true" [style]="{'margin-top': '50px'}">
+        <ng-template pTemplate="header">
+            <th style="background-color: #dfff4f !important; height: 70px; padding: 20px;">Datum</th>
+            <th style="background-color: #dfff4f !important;">Vreme od</th>
+            <th style="background-color: #dfff4f !important;">Vreme do</th>
+            <th style="background-color: #dfff4f !important;" colspan="2">Teren</th>
+            <th style="background-color: #dfff4f !important;" colspan="2">Učenik</th>
+            <th style="background-color: #dfff4f !important;">Tip učenika</th>
+            <th style="background-color: #dfff4f !important;">Broj reketa</th>
+            <th style="background-color: #dfff4f !important;">Status</th>
+            <th style="background-color: #dfff4f !important;">&nbsp;</th>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-res>
+            <tr>
+                <td>{{res.resDate | date: 'dd.MM.yyyy'}}</td>
+                <td>{{res.resTimeStart}}:00h</td>
+                <td>{{res.resTimeEnd}}:00h</td>
+                <td>{{res.resCourt.corName}}</td>
+                <td><img src="./assets/courts/{{res.resCourt.corImg}}" width="100" class="shadow-4"></td>
+                <td *ngIf = "res.resStudent != null">{{res.resStudent.accName}}&nbsp;{{res.resStudent.accSurname}}</td>
+                <td *ngIf = "res.resStudent == null">&nbsp;</td>
+                <td *ngIf = "res.resStudent != null"><img src="./assets/profilne_slike/{{res.resStudent.accPhoto}}" width="100" class="shadow-4"></td>
+                <td *ngIf = "res.resStudent == null">&nbsp;</td>
+                <td *ngIf = "res.resStudent != null">{{res.resStudent.accRole.rolDesc}}</td>
+                <td *ngIf = "res.resStudent == null">&nbsp;</td>
+                <td>{{res.resRacketNum}}</td>
+                <td>{{res.resStatus && res.resStatus.staDesc}}</td>
+                <td>
+                    <button pButton type="button"
+                            (click)="acceptReservation(res)"
+                            icon = "fa fa-check"
+                            [disabled]="res.resStatus.staCode == 'STA_ODOBREN' || res.resStatus.staCode == 'STA_OTKAZAN'"
+                            style="margin-right: 2px;">
+                    </button>
+                    <button pButton type="button"
+                            (click)="cancelReservation(res)"
+                            icon = "fa fa-close"
+                            [disabled]="res.resStatus.staCode == 'STA_OTKAZAN'"
+                            style="margin-right: 2px;">
+                    </button>
+                    <!-- <button pButton type="button"
+                            (click)="deleteReservation(res)"
+                            icon = "fa fa-trash"
+                            [disabled]="res.resStatus.staCode == 'STA_ODOBREN'">
+                    </button> -->
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td [attr.colspan]="10">Nema rezervacija</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="container">
+    <div class="row" style="width: 100%; margin-top: 20px;">
+      <div *ngIf="successMsg2 != ''">
+          <div class="alert alert-success" style="text-align: center;">
+              <strong>Uspeh:&nbsp;</strong>{{successMsg2}}
+          </div>
+      </div>
+      <div *ngIf="errMsg2 != ''">
+          <div class="alert alert-danger" style="text-align: center;">
+              <strong>Greška: </strong>{{errMsg2}}
+          </div>
+      </div>
+    </div>
+</div>
+
+<div class="bgImage" style="background-image: url('./assets/coach_background_image.jpg'); margin-bottom: -20px;"></div>

@@ -1,0 +1,49 @@
+<div class="jumbotron" style="background-color: #ffc14d; padding: 40px; margin-bottom: 40px;">
+  <h1 class="display-4" style="text-align: center; font-size: 30px;">
+    <span *ngIf="role != 'student'">Upoznajte trenere u našem timu!</span>
+    <span *ngIf="role == 'student'">Izaberite trenera</span>
+  </h1>
+</div>
+
+<div class="container">
+  <div class="row" style="width: 100%; margin-top: 20px;">
+    <div *ngIf="successMsg != ''">
+        <div class="alert alert-success" style="text-align: center;">
+            <strong>Uspeh:&nbsp;</strong>{{successMsg}}
+        </div>
+    </div>
+    <div *ngIf="errMsg != ''">
+        <div class="alert alert-danger" style="text-align: center;">
+            <strong>Greška: </strong>{{errMsg}}
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-3" *ngFor="let coach of allCoaches" style="height: 500px;">
+      <div class="container mt-3">
+        <div class="card" style="width: 300px;">
+          <img class="card-img-top" src="./assets/profilne_slike/{{coach.accPhoto}}" alt="Card image" height="300px">
+          <div class="card-body">
+            <h4 class="card-title">{{coach.accName}}&nbsp;{{coach.accSurname}}</h4>
+            <p class="card-text">
+              <i class="fa fa-envelope" aria-hidden="true" style="padding-right: 5px;"></i>
+              <b>Email:</b>&nbsp;{{coach.accEmail}}<br/>
+              <i class="fa fa-phone" aria-hidden="true" style="padding-right: 5px;"></i> 
+              <b>Telefon:</b>&nbsp;{{coach.accPhone}}
+            </p>
+            <div *ngIf="role != null && role == 'student' && hasCoach == false">
+              <button pButton type="button" 
+                      label="Pošalji zahtev"
+                      (click)="reserve(coach)">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bgImage" style="background-image: url('./assets/coach_background_image.jpg'); margin-bottom: -20px;"></div>

@@ -1,0 +1,42 @@
+<div class="bgImage"style="background-image: url('./assets/forehand_man_tennis.jpg')">
+</div>
+<div class="color-overlay d-flex justify-content-center align-items-center">
+    <div>
+        <form #loginForm="ngForm">
+            <h2 style="padding-top: 5px;">Forma za logovanje</h2>
+            <div class="form-group">
+                <label>Korisničko ime:</label>
+                <input class="form-control" type="text" name="kor_ime" [(ngModel)]="username" placeholder="Enter username"
+                    #InputUsername="ngModel" [required]="true">
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="InputUsername && !InputUsername.valid && InputUsername.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="InputUsername.errors && InputUsername.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Lozinka:</label>
+                <input class="form-control" type="password" name="password" [(ngModel)]="password" placeholder="Enter password" 
+                #InputPassword="ngModel" [required]="true">
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="InputPassword && !InputPassword.valid && InputPassword.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="InputPassword.errors && InputPassword.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                </div>
+            </div>
+            <div style="padding-top: 5px;">
+                <button class="btn btn-dark" pButton type="button" (click)="login()" [disabled]="!loginForm.form.valid">Login</button>
+                Nemate nalog? Registrujte se <a routerLink='registration'>ovde</a>.
+            </div>
+        </form>
+        <br/>
+        <span class="error">{{errMsg}}</span>
+    </div>
+</div>
+
+
+<div class="bgImage" style="background-image: url('./assets/coach_background_image.jpg'); margin-bottom: -20px;"></div>

@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+.error{
+    color: red;
+}
+
+label.label_required:after {
+    content: "*";
+    color: red;
+    position: absolute;
+    margin-left: -0.5px;
+}
+
+.bgImage {
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    text-align: justify;
+}
+
+.custom-p-chip .p-chip {
+    margin-bottom: 10px;
+}
+
+.filter-chip-checked .p-chip {
+    background-color: #DFFF4F;
+}
+
+.filter-chip-checked .p-chip-text, .filter-chip-checked .p-chip-icon {
+    color: black;
+}
+.p-chip-disabled .p-chip{
+    border: 1px solid #EBEBE4;
+    background-color: #ffffff;
+    color: #c2c2c1;
+    /* color: #EBEBE4; */
+}
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, 
+.mat-step-header .mat-step-icon-state-edit {
+    background-color:  #b7e0b8 !important;
+    color: black !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,88 @@
+<div class="jumbotron" style="background-color: #ffc14d; padding: 40px; margin-bottom: 40px;">
+    <h1 class="display-4" style="text-align: center; font-size: 30px;">Formiraj grupu</h1>
+</div>
+
+<div class="container">
+    <div class="row" style="width: 100%; margin-top: 20px;">
+      <div *ngIf="successMsg != ''">
+          <div class="alert alert-success" style="text-align: center;">
+              <strong>Uspeh:&nbsp;</strong>{{successMsg}}
+          </div>
+      </div>
+      <div *ngIf="errMsg != ''">
+          <div class="alert alert-danger" style="text-align: center;">
+              <strong>Greška: </strong>{{errMsg}}
+          </div>
+      </div>
+    </div>
+</div>
+
+<form style="text-align: center;" #groupForm="ngForm" name="grpForm" id="grpFormId">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-4"  style="text-align: right; padding: 10px;">
+                <label class="label_required">Naziv grupe:</label>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-4">
+                <input class="form-control mt-1 mb-1" type="text" required="true" name="groupName" [(ngModel)]="newGroup.grpName" [required]="true" #grpName="ngModel">
+                <div class="ui-message ui-messages-error ui-corner-all app-validation-msg" 
+                    *ngIf="grpName && !grpName.valid && grpName.dirty">
+                    <i class="fa fa-close error"></i>
+                    <span class="error" *ngIf="grpName.errors && grpName.errors['required']">
+                        Polje je obavezno!
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-4"  style="text-align: right; padding: 10px;">
+                <label>Opis:</label>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-4">
+                <textarea class="form-control mt-1 mb-1" 
+                          type="text" name="groupDesc" #accLastName="ngModel"
+                          [(ngModel)]="newGroup.grpDesc" 
+                          [required]="false">
+                </textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-4" style="text-align: right; padding: 10px;">
+                <label class="label_required" >Broj članova:</label>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-4" style="text-align: left;">
+                <p-dropdown [options]="groupNumOptions" 
+                            [(ngModel)]="newGroup && newGroup.grpStudentsNum" 
+                            #groupNumOpt="ngModel" 
+                            appendTo="body" 
+                            name="grpNumOpt" id="grpNumOpt"
+                            [style]="{'width': '100px'}">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="row mb-3 mt-3" *ngIf = "newGroup && newGroup.grpStudentsNum != null">
+            <div class="col-sm-12 col-md-12 col-lg-4" style="text-align: right; padding: 10px;">
+                <label class="label_required">Studenti:</label>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-4" style="text-align: left;">
+                <p-multiSelect [options]="myStudentsOptions" 
+                               [(ngModel)]="selectedStudents" 
+                               #selectStudentsForGroup="ngModel"
+                               name="studentsForGroupName"
+                               id="studentsForGroupId"
+                               optionLabel="label"
+                               [maxSelectedLabels]="newGroup.grpStudentsNum">
+                </p-multiSelect>
+                
+            </div>
+        </div>
+
+        <div class="row mb-3 mt-3">
+            <div class="col-sm-12 col-md-12 col-lg-12" >
+                <button class="btn btn-dark mb-3 mt-3" (click)="makeGroup()" [disabled]="!groupForm.form.valid">Napravi grupu</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="bgImage" style="background-image: url('./assets/coach_background_image.jpg'); margin-bottom: -20px;"></div>

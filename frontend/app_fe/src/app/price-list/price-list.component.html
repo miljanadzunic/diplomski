@@ -1,0 +1,30 @@
+<div class="jumbotron" style="background-color: #ffc14d; padding: 40px; margin-bottom: 40px;">
+    <h1 class="display-4" style="text-align: center; font-size: 30px;">Cenovnik naših usluga</h1>
+</div>
+<div style="margin: 70px;">
+    <p-table #dt1 [value]="priceList" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10, 20, 30]"
+    [responsive]="true" [style]="{'padding': '20px', 'border': '3px solid  #dfff4f'}">
+
+    <ng-template pTemplate="header" style="box-sizing: border-box; text-align: center;">
+        <th style="background-color: #E9ECEF; height: 70px; padding-left: 10px;">Naziv</th>
+        <th style="background-color: #E9ECEF; height: 70px;">Tip usluge</th>
+        <th style="background-color: #E9ECEF; height: 70px;">Cena</th>
+        <th style="background-color: #E9ECEF; height: 70px;">Opis</th>
+    </ng-template>
+    <hr/>
+    <ng-template pTemplate="body" let-prl>
+        <tr>
+            <td>{{prl.prlItem}}</td>
+            <td>{{prl.prlItemType}}</td>
+            <td>{{prl.prlPrice}}</td>
+            <td>{{prl.prlDesc}}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td [attr.colspan]="4">Nema podataka</td>
+        </tr>
+    </ng-template>
+    </p-table>
+</div>
+<div class="bgImage" style="background-image: url('./assets/coach_background_image.jpg'); margin-bottom: -20px;"></div>

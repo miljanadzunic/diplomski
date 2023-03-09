@@ -1,0 +1,26 @@
+<div class="jumbotron" style="background-color: #ffc14d; padding: 40px; margin-bottom: 40px;">
+    <h1 class="display-4" style="text-align: center; font-size: 30px;">O meni</h1>
+</div>
+
+<div class="container" style="margin-top: 50px; margin-bottom: 50px;">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <div>
+                <img src="./assets/profilne_slike/{{user.accPhoto}}" width="300" class="shadow-4">
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4" style="font-size: 20px;">
+            <div>
+                <div style="margin-bottom: 10px;">Ime i prezime: {{user.accName}}&nbsp;{{user.accSurname}}</div>
+                <div style="margin-bottom: 10px;">Username: {{user.accUsername}}</div>
+                <div style="margin-bottom: 10px;">Tip: {{user.accRole.rolDesc}}</div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4" style="font-size: 20px;">
+            <div style="margin-bottom: 10px;"><i class="fa fa-envelope" aria-hidden="true" style="padding-right: 5px;"></i>Email: {{user.accEmail}}</div>
+            <div style="margin-bottom: 10px;"><i class="fa fa-phone" aria-hidden="true" style="padding-right: 5px;"></i> Telefon: {{user.accPhone}}</div>
+            <div style="margin-bottom: 10px;"><i class="fa fa-birthday-cake" aria-hidden="true" style="padding-right: 5px;"></i>Datum rođenja: {{user.accBirthday | date: 'dd.MM.yyyy'}}</div>
+        </div>
+    </div>
+</div>
+<div class="bgImage" style="background-image: url('./assets/coach_background_image.jpg'); margin-bottom: -20px;"></div>
